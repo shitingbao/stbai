@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v3"
@@ -24,7 +25,7 @@ var config struct {
 }
 
 func init() {
-	flag.StringVar(&flagconf, "conf", "./configs", "config path, eg: -conf config.yaml")
+	flag.StringVar(&flagconf, "conf", "/opt/conf/config.yaml", "config path, eg: -conf config.yaml")
 }
 
 func main() {
@@ -55,5 +56,7 @@ func main() {
 			"message": "pong:" + arg.Data,
 		})
 	})
-	r.Run(":8000") // 监听并在 0.0.0.0:8080 上启动服务
+	listenPort := ":" + strconv.Itoa(config.Server.Port)
+	log.Println("start listen port ", listenPort)
+	r.Run(listenPort) // 监听并在 0.0.0.0:8080 上启动服务
 }

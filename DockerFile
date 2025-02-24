@@ -16,7 +16,7 @@ RUN go build -o aicmd
 FROM ubuntu
 # 重新构建，减少体积，这里只需要编译生成的可执行文件，配置文件，前端dist文件即可
 WORKDIR /opt
-COPY --from=stbaistage  aicmd .
+COPY --from=stbaistage  /stbai/aicmd .
 # COPY --from=stbaistage  /stbweb/builds/common/config.json .
 # COPY --from=stbaistage  /stbweb/builds/common/dist dist
 # no-install-recommends参数来避免安装非必须的文件，从而减小镜像的体积
